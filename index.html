@@ -3,34 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Captcha examen</title>
+    <title>Examen captcha Sequence</title>
+    <link rel="stylesheet" href="styles.css" />
     <script
       type="text/javascript"
       src="https://09bd26e5e726.eu-west-3.captcha-sdk.awswaf.com/09bd26e5e726/jsapi.js"
       defer
     ></script>
-    <style>
-      #captcha-container {
-        display: none;
-        margin-top: 20px;
-      }
-      #output {
-        margin-top: 20px;
-        white-space: pre-wrap;
-      }
-    </style>
+    <script type="module" src="script.js" defer></script>
   </head>
   <body>
-    <h1>Captcha Sequence Application</h1>
-    <form id="sequence-form">
-      <label for="number-input">Enter a number (1-1000): </label>
-      <input type="number" id="number-input" min="1" max="1000" required />
-      <button type="submit">Start</button>
-    </form>
-    <div id="captcha-container">
-      <p>Please solve the CAPTCHA to continue:</p>
-      <div id="my-captcha-container"></div>
+    <div class="container">
+      <h1>Captcha Sequence Application</h1>
+      <form id="sequence-form" class="form">
+        <label for="number-input">Enter a number (1-1000): </label>
+        <input type="number" id="number-input" min="1" max="1000" required />
+        <button type="submit" class="btn">Start</button>
+      </form>
+      <div id="captcha-container" class="captcha-container hidden">
+        <p>Please solve the CAPTCHA to continue:</p>
+        <div id="my-captcha-container"></div>
+      </div>
+      <div id="output" class="output"></div>
     </div>
-    <div id="output"></div>
   </body>
 </html>
