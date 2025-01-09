@@ -1,10 +1,10 @@
 const API_URL = "https://api.prod.jcloudify.com/whoami";
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY; 
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-const form = document.getElementById('sequence-form');
-const output = document.getElementById('output');
-const captchaContainer = document.getElementById('captcha-container');
-const captchaDiv = document.getElementById('my-captcha-container');
+const form = document.getElementById("sequence-form");
+const output = document.getElementById("output");
+const captchaContainer = document.getElementById("captcha-container");
+const captchaDiv = document.getElementById("my-captcha-container");
 
 let captchaResolved = false;
 let stopSequence = false;
@@ -15,24 +15,25 @@ function showCaptcha() {
     onSuccess: captchaResolvedSuccess,
     onError: captchaResolvedError,
   });
-  captchaContainer.classList.remove('hidden');
+  captchaContainer.classList.remove("hidden");
 }
 
 function captchaResolvedSuccess() {
-  console.log('Captcha résolu avec succès');
+  console.log("Captcha résolu avec succès");
   captchaResolved = true;
-  captchaContainer.classList.add('hidden');
+  captchaContainer.classList.add("hidden");
 }
 
 function captchaResolvedError(error) {
-  console.error('Erreur lors de la résolution du captcha', error);
+  console.error("Erreur lors de la résolution du captcha", error);
 }
 
-form.addEventListener('submit', async (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  output.textContent = '';
 
-  const n = parseInt(document.getElementById('number-input').value, 10);
+  const n = parseInt(document.getElementById("number-input").value, 10);
+  form.style.display = "none"; 
+  output.textContent = ""; 
 
   for (let i = 1; i <= n; i++) {
     if (stopSequence) {
@@ -50,22 +51,22 @@ form.addEventListener('submit', async (event) => {
       });
 
       if (response.status === 403) {
-        output.textContent += `${i}. Forbidden (403)\\n`;
+        output.textContent += `${i}. Forbidden\n`;
       } else if (response.status === 200) {
-        output.textContent += `${i}. Success (200)\\n`;
+        output.textContent += `${i}. Success (200)\n`;
       } else if (response.status === 405) {
-        output.textContent += `${i}. CAPTCHA Required (405)\\n`;
+        output.textContent += `${i}. CAPTCHA Required (405)\n`;
         stopSequence = true;
         showCaptcha();
         break;
       } else {
-        output.textContent += `${i}. Unexpected response: ${response.status}\\n`;
+        output.textContent += `${i}. Unexpected response: ${response.status}\n`;
       }
     } catch (error) {
-      output.textContent += `${i}. Network Error: ${error.message}\\n`;
+      output.textContent += `${i}. Network Error: ${error.message}\n`;
       console.error(`Error on request ${i}:`, error);
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Pause d'une seconde
   }
 });
