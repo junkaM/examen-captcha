@@ -1,5 +1,6 @@
 const API_URL = "https://api.prod.jcloudify.com/whoami";
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
+const API_KEY = window.NEXT_PUBLIC_API_KEY; 
 
 const form = document.getElementById("sequence-form");
 const output = document.getElementById("output");
@@ -32,8 +33,8 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const n = parseInt(document.getElementById("number-input").value, 10);
-  form.style.display = "none"; 
-  output.textContent = ""; 
+  form.style.display = "none";
+  output.textContent = "";
 
   for (let i = 1; i <= n; i++) {
     if (stopSequence) {
@@ -67,6 +68,6 @@ form.addEventListener("submit", async (event) => {
       console.error(`Error on request ${i}:`, error);
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Pause d'une seconde
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 });
